@@ -1,0 +1,41 @@
+---
+title: "stl_lead_inequity.qmd"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+
+```
+
+```{r}
+stl_lead <- read_csv(here::here("data","stl_lead.csv")) %>% 
+  clean_names()
+```
+
+<!--# To call csv to view, use console View(name of csv without .csv) -->
+
+```{r}
+
+stl_lead_pop <- stl_lead %>% dplyr::mutate((white / total_pop) * 100) 
+```
+
+```{r}
+stl_lead_histogram <- ggplot(data = stl_lead, aes(x = pct_elevated)) + 
+  geom_histogram(fill = "pink", color = "orange") +
+  theme_minimal() +
+  labs(title = "Histogram of STL Elevated Lead Exposure", x = "pct_elevated", y = "frequency")
+
+
+  stl_lead_histogram
+```
+
+```{r}
+stl_lead_histogram
+```
+
+```{r}
+ggsave(here::here("figs", "stl_lead_histogram.jpg"), height = 5, width = 6)
+```
